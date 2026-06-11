@@ -1,0 +1,51 @@
+[
+  {
+    "article": "PP 55 Tahun 2022 Pasal 56",
+    "title": "Kriteria dan Batasan PPh Final UMKM 0,5%",
+    "content": "Wajib Pajak dalam negeri yang memiliki peredaran bruto tertentu dikenai Pajak Penghasilan yang bersifat final dalam jangka waktu tertentu. Peredaran bruto tertentu yang dimaksud adalah tidak melebihi Rp 4.800.000.000 (empat miliar delapan ratus juta rupiah) dalam 1 (satu) Tahun Pajak. Tarif Pajak Penghasilan yang bersifat final sebesar 0,5% (nol koma lima persen) diterapkan atas peredaran bruto (omset) bulanan.",
+    "source_doc": "PP Nomor 55 Tahun 2022",
+    "explanation": "Aturan ini menetapkan bahwa UMKM dengan omset di bawah Rp 4,8 Miliar per tahun berhak menggunakan tarif PPh Final 0,5%. Pajak dihitung dari total omset kotor setiap bulan."
+  },
+  {
+    "article": "PP 55 Tahun 2022 Pasal 57",
+    "title": "Jangka Waktu Fasilitas Pajak UMKM 0,5%",
+    "content": "Jangka waktu pengenaan Pajak Penghasilan yang bersifat final 0,5% paling lama: a) 7 (tujuh) Tahun Pajak untuk Wajib Pajak Orang Pribadi; b) 4 (empat) Tahun Pajak untuk Wajib Pajak Badan berbentuk koperasi, persekutuan komanditer (CV), atau firma; c) 3 (tiga) Tahun Pajak untuk Wajib Pajak Badan berbentuk perseroan terbatas (PT). Jangka waktu tersebut dihitung sejak Tahun Pajak Wajib Pajak terdaftar.",
+    "source_doc": "PP Nomor 55 Tahun 2022",
+    "explanation": "Skema PPh Final 0,5% ada batas waktunya: 7 tahun untuk perorangan, 4 tahun untuk CV/Firma/Koperasi, dan 3 tahun untuk PT. Setelah masa itu habis, Wajib Pajak harus menggunakan skema normal (tarif umum Pasal 17)."
+  },
+  {
+    "article": "PP 55 Tahun 2022 Pasal 60",
+    "title": "Batasan Peredaran Bruto Tidak Kena Pajak (Pajak Bebas Rp 500 Juta)",
+    "content": "Wajib Pajak Orang Pribadi yang memiliki peredaran bruto tertentu tidak dikenai Pajak Penghasilan atas bagian peredaran bruto sampai dengan Rp 500.000.000 (lima ratus juta rupiah) dalam 1 (satu) Tahun Pajak. Bagian peredaran bruto yang melebihi Rp 500.000.000 dikenai Pajak Penghasilan Final 0,5% pada bulan berjalan setelah omset kumulatif melebihi batas tersebut.",
+    "source_doc": "PP Nomor 55 Tahun 2022",
+    "explanation": "Khusus untuk Wajib Pajak Orang Pribadi (individu), omset dari Januari hingga kumulatif Rp 500 juta dalam setahun TIDAK dikenai pajak (0%). Pajak 0,5% hanya dibayar atas kelebihan omset di atas Rp 500 juta. Aturan ini tidak berlaku untuk badan usaha (CV/PT)."
+  },
+  {
+    "article": "PMK Nomor 164/PMK.03/2023",
+    "title": "Tata Cara Pembebasan Pemotongan Pajak UMKM",
+    "content": "Wajib Pajak UMKM yang bertransaksi dengan pemotong atau pemungut pajak dapat dibebaskan dari pemotongan PPh Pasal 22 atau PPh Pasal 23. Caranya adalah dengan menyerahkan Surat Pernyataan Peredaran Bruto (jika omset kumulatif belum melebihi Rp 500 juta) atau Surat Keterangan (Suket) PP 55 (jika omset sudah melebihi Rp 500 juta atau merupakan WP Badan).",
+    "source_doc": "PMK No 164/PMK.03/2023",
+    "explanation": "Jika Anda UMKM dan bertransaksi dengan instansi pemerintah atau perusahaan yang memotong pajak, Anda tidak perlu dipotong pajak 1,5% or 2%. Cukup tunjukkan Surat Keterangan UMKM atau Surat Pernyataan omset masih di bawah 500 juta agar hanya dikenai PPh Final 0,5% atau dibebaskan."
+  },
+  {
+    "article": "UU HPP Pasal 17",
+    "title": "Tarif Pajak Penghasilan (PPh) Orang Pribadi Umum",
+    "content": "Tarif Pajak Penghasilan Pasal 17 ayat (1) huruf a UU PPh disesuaikan menjadi: a) Penghasilan kena pajak sampai dengan Rp 60 juta dikenai tarif 5%; b) Di atas Rp 60 juta s.d. Rp 250 juta dikenai tarif 15%; c) Di atas Rp 250 juta s.d. Rp 500 juta dikenai tarif 25%; d) Di atas Rp 500 juta s.d. Rp 5 milyar dikenai tarif 30%; e) Di atas Rp 5 milyar dikenai tarif 35%.",
+    "source_doc": "UU Harmonisasi Peraturan Perpajakan (HPP)",
+    "explanation": "Ini adalah tarif progresif pajak penghasilan umum (non-final) bagi wajib pajak perorangan yang tidak menggunakan skema PPh Final 0,5% atau sudah melebihi jangka waktu fasilitas UMKM."
+  },
+  {
+    "article": "Panduan Coretax DJP - Akun Pajak",
+    "title": "Sistem Pembayaran dan Pelaporan Pajak Baru (Coretax)",
+    "content": "Coretax Administration System mengintegrasikan seluruh layanan perpajakan ke dalam portal terpadu (Taxpayer Portal). Wajib Pajak dapat melihat data profil, pelaporan SPT Tahunan, riwayat transaksi pembayaran pajak, serta melakukan pembuatan kode billing dan penyetoran pajak dalam satu dashboard National Taxpayer Account (NTA). Layanan e-Filing dan e-Billing akan bermigrasi penuh ke sistem baru ini secara bertahap.",
+    "source_doc": "Panduan Resmi Coretax DJP",
+    "explanation": "Coretax adalah reformasi sistem IT perpajakan Indonesia. Semua layanan pajak (daftar, bayar, lapor) akan dijadikan satu portal. Pembukuan UMKM yang rapi sangat penting karena Coretax akan mempermudah DJP menganalisis kecocokan data transaksi."
+  },
+  {
+    "article": "UU HPP Pasal 7",
+    "title": "Kenaikan Pajak Pertambahan Nilai (PPN)",
+    "content": "Tarif Pajak Pertambahan Nilai (PPN) disesuaikan menjadi: a) Sebesar 11% (sebelas persen) yang mulai berlaku pada tanggal 1 April 2022; b) Sebesar 12% (dua belas persen) yang mulai berlaku paling lambat pada tanggal 1 Januari 2025.",
+    "source_doc": "UU Harmonisasi Peraturan Perpajakan (HPP)",
+    "explanation": "Tarif PPN untuk penjualan barang dan jasa kena pajak naik dari 10% menjadi 11% sejak April 2022 dan menjadi 12% per Januari 2025. UMKM yang sudah menjadi Pengusaha Kena Pajak (PKP) wajib memungut PPN ini."
+  }
+]

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import {
   LayoutDashboard,
   BookOpen,
@@ -474,9 +475,9 @@ export default function TaxOSDashboard() {
     <div className="flex h-screen overflow-hidden bg-slate-950 font-sans">
       {/* Sidebar Navigation */}
       <aside className="w-64 glass border-r border-white/5 flex flex-col shrink-0">
-        <div 
-          onClick={() => setActiveTab("dashboard")}
-          className="p-6 flex flex-col items-start border-b border-white/5 cursor-pointer hover:bg-white/5 transition-colors"
+        <Link 
+          href="/"
+          className="p-6 flex flex-col items-start border-b border-white/5 cursor-pointer hover:bg-white/5 transition-colors no-underline"
         >
           <div className="flex items-center gap-2">
             <span className="p-2 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-lg text-slate-950 shadow-lg shadow-emerald-500/20">
@@ -487,7 +488,7 @@ export default function TaxOSDashboard() {
             </span>
           </div>
           <span className="text-xs uppercase tracking-widest text-slate-400 font-semibold mt-1">Indonesia</span>
-        </div>
+        </Link>
 
         {/* Business Profile Card */}
         <div

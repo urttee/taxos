@@ -1172,6 +1172,20 @@
   }
 
   /* Pricing card mobile */
+  .pricingCard.popular {
+    padding-top: 64px;
+  }
+
+  .popularBadge {
+    width: 100%;
+    left: 0;
+    transform: none;
+    border-radius: 0;
+    padding: 8px;
+    font-size: 0.7rem;
+    text-align: center;
+  }
+
   .planName {
     font-size: 1.3rem;
   }

@@ -75,10 +75,10 @@ export default function LandingPage() {
         transition={{ duration: 0.5 }}
         className={styles.nav}
       >
-        <div className={styles.logo}>
+        <Link href="/dashboard" className={styles.logo}>
           <i className={`fa-solid fa-square-poll-vertical ${styles.logoIcon}`}></i>
           <span>TaxOS</span>
-        </div>
+        </Link>
         <div className={styles.navLinks}>
           <a href="#features" className={styles.navLink}>Fitur</a>
           <a href="#pricing" className={styles.navLink}>Harga</a>

@@ -43,10 +43,11 @@ import {
   Cell
 } from "recharts";
 import { CATEGORIES } from "@/lib/constants";
+import AccountingLedger from "@/components/AccountingLedger";
 
 export default function TaxOSDashboard() {
   // Tabs & Views
-  const [activeTab, setActiveTab] = useState<"dashboard" | "bookkeeping" | "tax" | "whatsapp" | "knowledge">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "bookkeeping" | "tax" | "whatsapp" | "knowledge" | "ledger">("dashboard");
 
   // Global State fetched from API
   const [stats, setStats] = useState<any>(null);
@@ -524,6 +525,15 @@ export default function TaxOSDashboard() {
           >
             <BookOpen size={18} />
             <span>Pencatatan Keuangan</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("ledger")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+              activeTab === "ledger" ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400" : "text-slate-400 hover:bg-white/5 hover:text-white"
+            }`}
+          >
+            <Calculator size={18} />
+            <span>Buku Besar (Akuntansi)</span>
           </button>
           <button
             onClick={() => setActiveTab("tax")}
@@ -1294,6 +1304,13 @@ export default function TaxOSDashboard() {
                       </div>
                     )}
                   </div>
+                </div>
+              )}
+
+              {/* 6. LEDGER TAB */}
+              {activeTab === "ledger" && (
+                <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <AccountingLedger clientId={1} />
                 </div>
               )}
             </>

@@ -66,6 +66,26 @@ export async function initDb() {
     // 1. Initialize SQLite
     const db = getSqliteDb();
     
+    // Clients Table
+    db.prepare(`
+      CREATE TABLE IF NOT EXISTS clients (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        npwp TEXT,
+        entity_type TEXT NOT NULL DEFAULT 'Orang Pribadi',
+        tax_regime TEXT NOT NULL DEFAULT 'pph_final_05',
+        annual_revenue REAL DEFAULT 0,
+        industry TEXT,
+        address TEXT,
+        pic_name TEXT,
+        pic_phone TEXT,
+        is_pkp INTEGER DEFAULT 0,
+        pkp_date TEXT,
+        is_active INTEGER DEFAULT 1,
+        created_at TEXT DEFAULT (datetime('now', 'localtime'))
+      );
+    `).run();
+
     // Transactions Table
     db.prepare(`
       CREATE TABLE IF NOT EXISTS transactions (
@@ -77,7 +97,51 @@ export async function initDb() {
         category TEXT NOT NULL,
         source TEXT CHECK(source IN ('whatsapp', 'manual', 'ocr')) NOT NULL,
         ocr_metadata TEXT,
+        client_id INTEGER REFERENCES clients(id),
         created_at TEXT DEFAULT (datetime('now', 'localtime'))
+      );
+    `).run();
+
+    try {
+      db.prepare("ALTER TABLE transactions ADD COLUMN client_id INTEGER REFERENCES clients(id);").run();
+    } catch (e) {
+      // Ignore if column already exists
+    }
+
+    // Chart of Accounts
+    db.prepare(`
+      CREATE TABLE IF NOT EXISTS accounts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        code TEXT NOT NULL,
+        name TEXT NOT NULL,
+        type TEXT NOT NULL CHECK(type IN ('asset', 'liability', 'equity', 'revenue', 'expense')),
+        parent_code TEXT,
+        is_active INTEGER DEFAULT 1,
+        client_id INTEGER REFERENCES clients(id),
+        UNIQUE(code, client_id)
+      );
+    `).run();
+
+    // Journal Entries
+    db.prepare(`
+      CREATE TABLE IF NOT EXISTS journal_entries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date TEXT NOT NULL,
+        description TEXT NOT NULL,
+        reference TEXT,
+        client_id INTEGER REFERENCES clients(id),
+        created_at TEXT DEFAULT (datetime('now', 'localtime'))
+      );
+    `).run();
+
+    db.prepare(`
+      CREATE TABLE IF NOT EXISTS journal_lines (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        journal_id INTEGER NOT NULL REFERENCES journal_entries(id) ON DELETE CASCADE,
+        account_code TEXT NOT NULL,
+        debit REAL DEFAULT 0,
+        credit REAL DEFAULT 0,
+        description TEXT
       );
     `).run();
 
@@ -149,13 +213,39 @@ export async function initDb() {
       db.prepare("INSERT INTO settings (key, value) VALUES (?, ?);").run("annual_tax_year", "2026");
     }
 
+    // Default Client
+    const clientCountRes = db.prepare("SELECT COUNT(*) as count FROM clients;").get() as any;
+    if (clientCountRes.count === 0) {
+      db.prepare(`INSERT INTO clients (name, entity_type, tax_regime) VALUES (?, ?, ?);`).run('Warung Makan Berkah', 'Orang Pribadi', 'pph_final_05');
+      db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?);").run("active_client_id", "1");
+    }
+
     // Populate Regulations
     await populateRegulationsLocal();
   } else {
     // 2. Initialize PostgreSQL (Supabase)
     const client = await getPgClient();
     try {
-      // Create tables
+      // Create tables for Postgres
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS clients (
+          id SERIAL PRIMARY KEY,
+          name TEXT NOT NULL,
+          npwp TEXT,
+          entity_type TEXT NOT NULL DEFAULT 'Orang Pribadi',
+          tax_regime TEXT NOT NULL DEFAULT 'pph_final_05',
+          annual_revenue DOUBLE PRECISION DEFAULT 0,
+          industry TEXT,
+          address TEXT,
+          pic_name TEXT,
+          pic_phone TEXT,
+          is_pkp INTEGER DEFAULT 0,
+          pkp_date TEXT,
+          is_active INTEGER DEFAULT 1,
+          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+
       await client.query(`
         CREATE TABLE IF NOT EXISTS transactions (
           id SERIAL PRIMARY KEY,
@@ -166,7 +256,49 @@ export async function initDb() {
           category TEXT NOT NULL,
           source TEXT CHECK(source IN ('whatsapp', 'manual', 'ocr')) NOT NULL,
           ocr_metadata TEXT,
+          client_id INTEGER REFERENCES clients(id),
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+
+      try {
+        await client.query("ALTER TABLE transactions ADD COLUMN client_id INTEGER REFERENCES clients(id);");
+      } catch (e) {
+        // Ignore if column already exists
+      }
+
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS accounts (
+          id SERIAL PRIMARY KEY,
+          code TEXT NOT NULL,
+          name TEXT NOT NULL,
+          type TEXT NOT NULL CHECK(type IN ('asset', 'liability', 'equity', 'revenue', 'expense')),
+          parent_code TEXT,
+          is_active INTEGER DEFAULT 1,
+          client_id INTEGER REFERENCES clients(id),
+          UNIQUE(code, client_id)
+        );
+      `);
+
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS journal_entries (
+          id SERIAL PRIMARY KEY,
+          date TEXT NOT NULL,
+          description TEXT NOT NULL,
+          reference TEXT,
+          client_id INTEGER REFERENCES clients(id),
+          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS journal_lines (
+          id SERIAL PRIMARY KEY,
+          journal_id INTEGER NOT NULL REFERENCES journal_entries(id) ON DELETE CASCADE,
+          account_code TEXT NOT NULL,
+          debit DOUBLE PRECISION DEFAULT 0,
+          credit DOUBLE PRECISION DEFAULT 0,
+          description TEXT
         );
       `);
 
@@ -194,6 +326,13 @@ export async function initDb() {
         await client.query("INSERT INTO settings (key, value) VALUES ($1, $2);", ["business_name", "Warung Makan Berkah"]);
         await client.query("INSERT INTO settings (key, value) VALUES ($1, $2);", ["business_type", "Orang Pribadi"]);
         await client.query("INSERT INTO settings (key, value) VALUES ($1, $2);", ["annual_tax_year", "2026"]);
+      }
+
+      // Default Client
+      const clientRes = await client.query("SELECT COUNT(*) as count FROM clients;");
+      if (parseInt(clientRes.rows[0].count, 10) === 0) {
+        await client.query(`INSERT INTO clients (name, entity_type, tax_regime) VALUES ($1, $2, $3);`, ['Warung Makan Berkah', 'Orang Pribadi', 'pph_final_05']);
+        await client.query("INSERT INTO settings (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;", ["active_client_id", "1"]);
       }
 
       await populateRegulationsPg(client);

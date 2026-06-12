@@ -1103,4 +1103,137 @@
   .footer {
     padding: 48px 6% 32px;
   }
+
+  /* Mockup mobile */
+  .mockupContainer {
+    margin-top: 40px;
+  }
+
+  .mockupFrame {
+    border-radius: 16px;
+  }
+
+  .mockupStats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .statBox {
+    padding: 12px;
+  }
+
+  .statVal {
+    font-size: 1.1rem;
+  }
+
+  .mockupChart {
+    height: 150px;
+    padding: 12px;
+  }
+
+  .chartBars {
+    height: 100px;
+    padding: 0 4px;
+  }
+
+  .mockupContent {
+    gap: 12px;
+  }
+
+  .mockupTitle {
+    font-size: 0.7rem;
+  }
+
+  .title {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .title br {
+    display: none;
+  }
+
+  /* Marquee mobile */
+  .marqueeSection {
+    padding: 36px 0;
+  }
+
+  .marqueeTitle {
+    font-size: 0.7rem;
+    padding: 0 6%;
+  }
+
+  .logoItem {
+    font-size: 1rem;
+  }
+
+  .marqueeTrack {
+    gap: 36px;
+  }
+
+  /* Pricing card mobile */
+  .planName {
+    font-size: 1.3rem;
+  }
+
+  .planSubtitle {
+    font-size: 0.8rem;
+  }
+
+  .planPrice {
+    font-size: 2rem;
+  }
+
+  /* CTA banner mobile */
+  .ctaBanner h2 {
+    font-size: 1.5rem;
+  }
+
+  .ctaBanner p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 100px 5% 40px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .planPrice {
+    font-size: 1.8rem;
+  }
+
+  .pricingCard {
+    padding: 28px 20px;
+  }
+
+  .bentoCard {
+    padding: 20px;
+  }
+
+  .statBox div:first-child {
+    font-size: 0.7rem;
+  }
+
+  .ctaBanner {
+    margin: 40px 5%;
+    padding: 36px 20px;
+  }
 }

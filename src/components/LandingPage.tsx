@@ -7,6 +7,7 @@ import styles from './LandingPage.module.css';
 export default function LandingPage() {
   const [isYearly, setIsYearly] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Parallax mouse effect for 3D Mockup
   const mouseX = useMotionValue(0);
@@ -33,6 +34,8 @@ export default function LandingPage() {
   const toggleFaq = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   // Mock data
   const clientLogos = [
@@ -79,6 +82,14 @@ export default function LandingPage() {
           <i className={`fa-solid fa-square-poll-vertical ${styles.logoIcon}`}></i>
           <span>TaxOS</span>
         </Link>
+        <button
+          className={styles.hamburger}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={mobileMenuOpen}
+        >
+          {mobileMenuOpen ? '✕' : '☰'}
+        </button>
         <div className={styles.navLinks}>
           <a href="#features" className={styles.navLink}>Fitur</a>
           <a href="#pricing" className={styles.navLink}>Harga</a>
@@ -88,6 +99,26 @@ export default function LandingPage() {
           </Link>
         </div>
       </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            className={styles.mobileMenuOverlay}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+          >
+            <a href="#features" className={styles.mobileMenuLink} onClick={closeMobileMenu}>Fitur</a>
+            <a href="#pricing" className={styles.mobileMenuLink} onClick={closeMobileMenu}>Harga</a>
+            <a href="#faq" className={styles.mobileMenuLink} onClick={closeMobileMenu}>FAQ</a>
+            <Link href="/dashboard" className={styles.mobileMenuBtn} onClick={closeMobileMenu}>
+              Masuk App
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Hero Section */}
       <section className={styles.hero}>

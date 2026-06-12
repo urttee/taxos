@@ -26,6 +26,7 @@ import {
   Image as ImageIcon,
   Printer,
   X,
+  Menu,
   CheckCircle,
   AlertCircle,
   Trash2,
@@ -49,6 +50,7 @@ import AccountingLedger from "@/components/AccountingLedger";
 export default function TaxOSDashboard() {
   // Tabs & Views
   const [activeTab, setActiveTab] = useState<"dashboard" | "bookkeeping" | "tax" | "whatsapp" | "knowledge" | "ledger">("dashboard");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Global State fetched from API
   const [stats, setStats] = useState<any>(null);
@@ -473,8 +475,25 @@ export default function TaxOSDashboard() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-slate-950 font-sans">
+      {/* Mobile Sidebar Backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar Navigation */}
-      <aside className="w-64 glass border-r border-white/5 flex flex-col shrink-0">
+      <aside className={`fixed inset-y-0 left-0 z-50 w-64 glass border-r border-white/5 flex flex-col shrink-0 transform transition-transform duration-300 md:relative md:translate-x-0 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        {/* Mobile Close Button */}
+        <button
+          onClick={() => setSidebarOpen(false)}
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors md:hidden"
+        >
+          <X size={20} />
+        </button>
         <Link 
           href="/"
           className="p-6 flex flex-col items-start border-b border-white/5 cursor-pointer hover:bg-white/5 transition-colors no-underline"
@@ -510,7 +529,7 @@ export default function TaxOSDashboard() {
         {/* Navigation Menu */}
         <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
           <button
-            onClick={() => setActiveTab("dashboard")}
+            onClick={() => { setActiveTab("dashboard"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
               activeTab === "dashboard" ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400" : "text-slate-400 hover:bg-white/5 hover:text-white"
             }`}
@@ -519,7 +538,7 @@ export default function TaxOSDashboard() {
             <span>Dashboard</span>
           </button>
           <button
-            onClick={() => setActiveTab("bookkeeping")}
+            onClick={() => { setActiveTab("bookkeeping"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
               activeTab === "bookkeeping" ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400" : "text-slate-400 hover:bg-white/5 hover:text-white"
             }`}
@@ -528,7 +547,7 @@ export default function TaxOSDashboard() {
             <span>Pencatatan Keuangan</span>
           </button>
           <button
-            onClick={() => setActiveTab("ledger")}
+            onClick={() => { setActiveTab("ledger"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
               activeTab === "ledger" ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400" : "text-slate-400 hover:bg-white/5 hover:text-white"
             }`}
@@ -537,7 +556,7 @@ export default function TaxOSDashboard() {
             <span>Buku Besar (Akuntansi)</span>
           </button>
           <button
-            onClick={() => setActiveTab("tax")}
+            onClick={() => { setActiveTab("tax"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
               activeTab === "tax" ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400" : "text-slate-400 hover:bg-white/5 hover:text-white"
             }`}
@@ -546,7 +565,7 @@ export default function TaxOSDashboard() {
             <span>Asisten Pajak</span>
           </button>
           <button
-            onClick={() => setActiveTab("whatsapp")}
+            onClick={() => { setActiveTab("whatsapp"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
               activeTab === "whatsapp" ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400" : "text-slate-400 hover:bg-white/5 hover:text-white"
             }`}
@@ -555,7 +574,7 @@ export default function TaxOSDashboard() {
             <span>Asisten Chat (AI)</span>
           </button>
           <button
-            onClick={() => setActiveTab("knowledge")}
+            onClick={() => { setActiveTab("knowledge"); setSidebarOpen(false); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
               activeTab === "knowledge" ? "bg-emerald-500/10 text-emerald-400 border-l-2 border-emerald-400" : "text-slate-400 hover:bg-white/5 hover:text-white"
             }`}
@@ -578,7 +597,14 @@ export default function TaxOSDashboard() {
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header Bar */}
-        <header className="h-20 shrink-0 border-b border-white/5 px-8 flex items-center justify-between glass">
+        <header className="h-16 md:h-20 shrink-0 border-b border-white/5 px-4 md:px-8 flex items-center justify-between glass">
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors md:hidden mr-3"
+          >
+            <Menu size={22} />
+          </button>
           <div>
             <h1 className="text-xl font-bold text-white font-display">
               Selamat Pagi, {stats?.business_name || "Warung Makan Berkah"}!
@@ -610,7 +636,7 @@ export default function TaxOSDashboard() {
         </header>
 
         {/* Dynamic Tab Views container */}
-        <div className="flex-1 overflow-y-auto p-8">
+        <div className="flex-1 overflow-y-auto p-4 md:p-8">
           {loading ? (
             <div className="h-full flex items-center justify-center flex-col gap-3">
               <div className="w-8 h-8 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin"></div>
@@ -622,7 +648,7 @@ export default function TaxOSDashboard() {
               {activeTab === "dashboard" && stats && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   {/* Top Stats Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                     <div className="p-6 rounded-2xl glass flex flex-col justify-between relative overflow-hidden">
                       <div className="flex items-center justify-between text-slate-400">
                         <span className="text-xs font-semibold uppercase tracking-wider">Omzet Bulanan (2026)</span>
@@ -685,9 +711,9 @@ export default function TaxOSDashboard() {
                   </div>
 
                   {/* Charts Row */}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
                     {/* Bar chart */}
-                    <div className="p-6 rounded-2xl glass col-span-2 flex flex-col">
+                    <div className="p-4 md:p-6 rounded-2xl glass lg:col-span-2 flex flex-col">
                       <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-6">Arus Kas (Pemasukan vs Pengeluaran)</h3>
                       <div className="h-72 w-full">
                         <ResponsiveContainer width="100%" height="100%">
@@ -753,9 +779,9 @@ export default function TaxOSDashboard() {
                   </div>
 
                   {/* Details Grid */}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
                     {/* Recent Transactions Table */}
-                    <div className="p-6 rounded-2xl glass lg:col-span-2 flex flex-col justify-between">
+                    <div className="p-4 md:p-6 rounded-2xl glass lg:col-span-2 flex flex-col justify-between">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400">Transaksi Terbaru</h3>
                         <button

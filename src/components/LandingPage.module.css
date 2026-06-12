@@ -903,26 +903,204 @@
   }
 }
 
+/* Hamburger Button - hidden on desktop */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  z-index: 101;
+}
+
+/* Mobile Menu Overlay - hidden on desktop */
+.mobileMenuOverlay {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .heroCta {
-    flex-direction: column;
-  display: block;
-  box-sizing: border-box;
-    width: 100%;
-    max-width: 300px;
+  /* Show hamburger on mobile */
+  .hamburger {
+    display: block;
   }
-  .btnLarge, .btnSecondary {
-  display: block;
-  box-sizing: border-box;
-    width: 100%;
-    text-align: center;
-  }
+
+  /* Keep navLinks hidden on mobile */
   .navLinks {
     display: none;
   }
+
+  /* Mobile menu overlay */
+  .mobileMenuOverlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 12, 0.95);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 24px 8%;
+    z-index: 99;
+  }
+
+  .mobileMenuLink {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: color 0.2s ease;
+  }
+
+  .mobileMenuLink:hover {
+    color: var(--text-primary);
+  }
+
+  .mobileMenuBtn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--text-primary);
+    color: #000;
+    padding: 14px 0;
+    border-radius: 99px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 8px;
+  }
+
+  /* Hero section mobile */
+  .hero {
+    padding: 120px 6% 60px;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+  }
+
+  .heroCta {
+    flex-direction: column;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .btnLarge, .btnSecondary {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .socialProof {
+    flex-direction: column;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  /* Pricing toggle mobile */
+  .pricingToggleWrapper {
+    flex-direction: column;
+    gap: 12px;
+    font-size: 0.85rem;
+  }
+
+  /* Section header mobile */
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 1rem;
+  }
+
+  .sectionHeader {
+    margin-bottom: 48px;
+  }
+
+  /* Features mobile */
+  .features {
+    padding: 80px 6%;
+  }
+
+  .bentoCard {
+    padding: 28px;
+  }
+
+  /* Pricing mobile */
+  .pricing {
+    padding: 80px 6%;
+  }
+
+  .pricingCard {
+    padding: 36px 24px;
+  }
+
+  .planPrice {
+    font-size: 2.4rem;
+  }
+
+  .planDesc {
+    min-height: auto;
+  }
+
+  /* FAQ mobile */
+  .faqSection {
+    padding: 80px 6% 60px;
+  }
+
+  .faqQuestion {
+    font-size: 0.95rem;
+    padding: 18px;
+  }
+
+  .faqAnswer {
+    padding: 0 18px 18px;
+    font-size: 0.9rem;
+  }
+
+  /* CTA Banner mobile */
+  .ctaBanner {
+    margin: 60px 6%;
+    padding: 48px 24px;
+    border-radius: 24px;
+  }
+
+  .ctaBanner h2 {
+    font-size: 1.8rem;
+  }
+
+  .ctaBanner p {
+    font-size: 1rem;
+  }
+
+  /* Footer mobile */
   .footerBottom {
     flex-direction: column;
     gap: 16px;
     text-align: center;
+  }
+
+  .footer {
+    padding: 48px 6% 32px;
   }
 }
